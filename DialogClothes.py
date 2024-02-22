@@ -15,7 +15,7 @@ class Ui_Dialog_Clothes(object):
 
     def openWindow_SearchPerson(self):
         self.window_SearchPerson = QtWidgets.QMainWindow()
-        self.ui = Ui_Dialog_Clothes()
+        self.ui = Ui_Dialog()
         self.ui.setupUi(self.window_SearchPerson)
         self.window_SearchPerson.show()
     def setupUi(self, Dialog_Clothes):
@@ -78,7 +78,7 @@ class Ui_Dialog_Clothes(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.pushButton_AssignCloth = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_AssignCloth = QtWidgets.QPushButton(self.verticalLayoutWidget, clicked = lambda: self.openWindow_SearchPerson())
         self.pushButton_AssignCloth.setObjectName("pushButton_AssignCloth")
         self.verticalLayout.addWidget(self.pushButton_AssignCloth)
 
