@@ -9,10 +9,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import Background_MainWindow
 from DialogSearchPerson import Ui_Dialog
 
 class Ui_Dialog_Clothes(object):
-
     def openWindow_SearchPerson(self):
         self.window_SearchPerson = QtWidgets.QMainWindow()
         self.ui = Ui_Dialog()
@@ -66,7 +67,7 @@ class Ui_Dialog_Clothes(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.horizontalLayout.addWidget(self.lineEdit_2)
-        self.pushButton_Search = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_Search = QtWidgets.QPushButton(self.horizontalLayoutWidget, clicked = lambda: self.fn_ClothesToList())
         self.pushButton_Search.setObjectName("pushButton_Search")
         self.horizontalLayout.addWidget(self.pushButton_Search)
         self.listWidget = QtWidgets.QListWidget(Dialog_Clothes)
@@ -81,9 +82,17 @@ class Ui_Dialog_Clothes(object):
         self.pushButton_AssignCloth = QtWidgets.QPushButton(self.verticalLayoutWidget, clicked = lambda: self.openWindow_SearchPerson())
         self.pushButton_AssignCloth.setObjectName("pushButton_AssignCloth")
         self.verticalLayout.addWidget(self.pushButton_AssignCloth)
-
         self.retranslateUi(Dialog_Clothes)
         QtCore.QMetaObject.connectSlotsByName(Dialog_Clothes)
+    def fn_ClothesToList(self):
+        self.listWidget.clear()
+        v_type = self.comboBox_Type.currentText()
+        v_size = self.comboBox_Size.currentText()
+        print(v_type, v_size)
+        results = Background_MainWindow.fn_GetListClothes(v_type,v_size)
+        for cloth in results:
+            text = f'{cloth[0]}: {cloth[1]} {cloth[2]}'
+            self.listWidget.addItem(text)
 
     def retranslateUi(self, Dialog_Clothes):
         _translate = QtCore.QCoreApplication.translate
@@ -107,6 +116,7 @@ class Ui_Dialog_Clothes(object):
         self.label_LastName.setText(_translate("Dialog_Clothes", "Nazwisko:"))
         self.pushButton_Search.setText(_translate("Dialog_Clothes", "Szukaj"))
         self.pushButton_AssignCloth.setText(_translate("Dialog_Clothes", "Przypisz osobie"))
+
 
 
 if __name__ == '__main__':
